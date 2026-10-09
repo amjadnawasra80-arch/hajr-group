@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAJR AI PRO - منصة التداول العالمية</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        header {
+            background: #111827;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+        .badge {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .user-balance {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+        }
+        .balance-item span {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .ticker-bar {
+            background: #0f172a;
+            padding: 8px 15px;
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            border-bottom: 1px solid #1e293b;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+        .ticker-item {
+            display: flex;
+            gap: 8px;
+        }
+        .ticker-item .up { color: #10b981; }
+        .ticker-item .down { color: #ef4444; }
+        
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 260px;
+            background: #111827;
+            border-left: 1px solid #1f2937;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .sidebar h3 {
+            font-size: 14px;
+            color: #9ca3af;
+            margin-bottom: 5px;
+        }
+        .asset-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .asset-card {
+            background: #1f2937;
+            padding: 10px 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+        .asset-card:hover, .asset-card.active {
+            border-color: #38bdf8;
+            background: #1a2332;
+        }
+        
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #0b0f19;
+            padding: 15px;
+            gap: 15px;
+            overflow-y: auto;
+        }
+        .chart-box {
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chart-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .chart-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #10b981;
+        }
+        .mock-chart {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            padding: 20px 0;
+            justify-content: space-between;
+        }
+        .bar {
+            flex: 1;
+            background: #38bdf8;
+            opacity: 0.7;
+            border-radius: 2px 2px 0 0;
+            transition: height 0.5s;
+        }
+        
+        .trading-panel {
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .trade-inputs {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+        }
+        .input-group label {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        .input-group input {
+            background: #1f2937;
+            border: 1px solid #374151;
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+        .trade-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+        }
+        .btn-buy {
+            background: #10b981;
+            color: #fff;
+        }
+        .btn-buy:hover { background: #059669; }
+        .btn-sell {
+            background: #ef4444;
+            color: #fff;
+        }
+        .btn-sell:hover { background: #dc2626; }
+
+        @media (max-width: 768px) {
+            .main-layout { flex-direction: column; }
+            .sidebar { width: 100%; height: 140px; overflow-y: auto; }
+            .trading-panel { flex-direction: column; align-items: stretch; }
+            .trade-buttons { width: 100%; }
+            .btn { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo">HAJR AI PRO</div>
+            <div class="badge">GLOBAL TRADING AI</div>
+        </div>
+        <div class="user-balance">
+            <div>الرصيد: <span id="userBalance">$50,000.00</span></div>
+        </div>
+    </header>
+
+    <div class="ticker-bar">
+        <div class="ticker-item"><span>EUR/USD</span> <span class="up">1.0845 (+0.35%)</span></div>
+        <div class="ticker-item"><span>XAU/USD (ذهب)</span> <span class="up">2,380.20 (+1.12%)</span></div>
+        <div class="ticker-item"><span>BTC/USD</span> <span class="down">64,210.50 (-0.45%)</span></div>
+        <div class="ticker-item"><span>US30 (داو جونز)</span> <span class="up">39,120.00 (+0.18%)</span></div>
+        <div class="ticker-item"><span>NVDA</span> <span class="up">128.40 (+2.40%)</span></div>
+    </div>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <h3>الأصول المتاحة</h3>
+            <div class="asset-list">
+                <div class="asset-card active" onclick="selectAsset('XAU/USD', '2,380.20')">
+                    <div><strong>الذهب (XAU/USD)</strong><br><small style="color:#10b981">معادن نفيسة</small></div>
+                    <span class="up">+1.12%</span>
+                </div>
+                <div class="asset-card" onclick="selectAsset('BTC/USD', '64,210.50')">
+                    <div><strong>بتكوين (BTC)</strong><br><small style="color:#ef4444">عملات رقمية</small></div>
+                    <span class="down">-0.45%</span>
+                </div>
+                <div class="asset-card" onclick="selectAsset('EUR/USD', '1.0845')">
+                    <div><strong>يورو / دولار</strong><br><small style="color:#10b981">فوركس</small></div>
+                    <span class="up">+0.35%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="chart-box">
+                <div class="chart-header">
+                    <div>
+                        <div class="chart-title" id="selectedAssetTitle">الذهب الفوري (XAU/USD)</div>
+                        <small style="color: #9ca3af;">تحليل ذكي بالذكاء الاصطناعي - إشارات حية</small>
+                    </div>
+                    <div class="chart-price" id="selectedAssetPrice">2,380.20 $</div>
+                </div>
+                <div class="mock-chart" id="chartBars">
+                    <div class="bar" style="height: 40%;"></div>
+                    <div class="bar" style="height: 55%;"></div>
+                    <div class="bar" style="height: 45%;"></div>
+                    <div class="bar" style="height: 70%;"></div>
+                    <div class="bar" style="height: 60%;"></div>
+                    <div class="bar" style="height: 85%;"></div>
+                    <div class="bar" style="height: 75%;"></div>
+                    <div class="bar" style="height: 95%;"></div>
+                </div>
+            </div>
+
+            <div class="trading-panel">
+                <div class="trade-inputs">
+                    <div class="input-group">
+                        <label>حجم العقد (لوت)</label>
+                        <input type="number" id="lotSize" value="1.0" step="0.1" min="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>الرافعة المالية</label>
+                        <input type="text" value="1:500 AI Pro" readonly style="color: #38bdf8;">
+                    </div>
+                </div>
+                <div class="trade-buttons">
+                    <button class="btn btn-buy" onclick="executeTrade('شراء (BUY)')">شراء 🟢</button>
+                    <button class="btn btn-sell" onclick="executeTrade('بيع (SELL)')">بيع 🔴</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectAsset(name, price) {
+            document.getElementById('selectedAssetTitle').textContent = name;
+            document.getElementById('selectedAssetPrice').textContent = price + ' $';
+            
+            // تأثير حركي بسيط للرسوم البيانية
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach(bar => {
+                const randomHeight = Math.floor(Math.random() * 60) + 30;
+                bar.style.height = randomHeight + '%';
+            });
+        }
+
+        function executeTrade(type) {
+            const asset = document.getElementById('selectedAssetTitle').textContent;
+            const lot = document.getElementById('lotSize').value;
+            alert(`تم تنفيذ صفقة ${type} بنجاح على الأصل: ${asset} بحجم عقد: ${lot} عبر خوارزميات HAJR AI PRO.`);
+        }
+
+        // تحديث وهمي للحركات السعرية لإعطاء واقعية لمنصة التداول
+        setInterval(() => {
+            const bars = document.querySelectorAll('.bar');
+            const randomBar = bars[Math.floor(Math.random() * bars.length)];
+            const currentHeight = parseInt(randomBar.style.height) || 50;
+            const newHeight = Math.min(95, Math.max(20, currentHeight + (Math.random() * 20 - 10)));
+            randomBar.style.height = newHeight + '%';
+        }, 2000);
+    </script>
+
+</body>
+</html>
