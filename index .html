@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAJR AI - المنصة الذكية المتكاملة</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: #111827;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+        .badge {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .status {
+            font-size: 13px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #10b981;
+        }
+        .telemetry-bar {
+            background: #0f172a;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+        }
+        .telemetry-item {
+            direction: ltr;
+            unicode-bidi: embed;
+        }
+        .telemetry-item span {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border: 1px solid #374151;
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .hero-section p {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .grid-modules {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .module-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .module-card:hover {
+            border-color: #38bdf8;
+            background: #141c2e;
+        }
+        .module-icon {
+            font-size: 24px;
+        }
+        .module-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .module-desc {
+            font-size: 13px;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+        .action-btn {
+            margin-top: 5px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+        .action-btn:hover { background: #38bdf8; color: #0b0f19; }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .price-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .price-card.featured {
+            border-color: #38bdf8;
+            background: #131d31;
+        }
+        .price-title { font-size: 18px; font-weight: bold; color: #fff; }
+        .price-amount { font-size: 26px; font-weight: bold; color: #38bdf8; }
+        .price-features { font-size: 13px; color: #9ca3af; line-height: 1.8; text-align: right; }
+        .subscribe-btn {
+            background: #10b981;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .subscribe-btn:hover { background: #059669; }
+
+        .affiliate-section {
+            background: linear-gradient(135deg, #172033 0%, #0f172a 100%);
+            border: 1px solid #38bdf8;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .affiliate-section h2 { color: #38bdf8; font-size: 20px; }
+        .affiliate-section p { color: #9ca3af; font-size: 13px; line-height: 1.6; }
+        .affiliate-btn {
+            background: #38bdf8;
+            color: #0b0f19;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+
+        .console-box {
+            background: #111827;
+            border: 1px solid #38bdf8;
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+        }
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #38bdf8;
+            font-size: 14px;
+        }
+        .console-output {
+            background: #0b0f19;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #10b981;
+            border: 1px solid #1f2937;
+            line-height: 1.5;
+        }
+        footer {
+            background: #111827;
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid #1f2937;
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo">HAJR AI</div>
+            <div class="badge">Instagram Bio Link</div>
+        </div>
+        <div class="status">
+            <span class="status-dot"></span> نشط الآن
+        </div>
+    </header>
+
+    <div class="telemetry-bar">
+        <div class="telemetry-item">Ping: <span id="pingRate">14ms</span></div>
+        <div class="telemetry-item">Uptime: <span style="color: #10b981;">99.9%</span></div>
+        <div class="telemetry-item">Core: <span>v4.0</span></div>
+    </div>
+
+    <div class="main-container">
+        <div class="hero-section">
+            <h1>منصة HAJR AI الشاملة للأعمال والذكاء الاصطناعي</h1>
+            <p>نظام بيئي متكامل يدمج المساعد الذكي، الأتمتة، والتحليلات التنبؤية لرفع أرباح وكفاءة مشاريعك.</p>
+        </div>
+
+        <div class="section-title">فئات المنظومة الذكية</div>
+        <div class="grid-modules">
+            <div class="module-card">
+                <div class="module-icon">💬</div>
+                <div class="module-title">المساعد الذكي التفاعلي</div>
+                <div class="module-desc">أنظمة محادثة متطورة لخدمة العملاء والإجابة الفورية بدقة وسرعة فائقة.</div>
+                <button class="action-btn" onclick="runModule('المساعد الذكي التفاعلي', 'تشغيل نماذج اللغة والدعم الفوري...')">تشغيل النظام</button>
+            </div>
+
+            <div class="module-card">
+                <div class="module-icon">⚡</div>
+                <div class="module-title">أتمتة الأعمال والعمليات</div>
+                <div class="module-desc">حلول برمجية لربط المنصات الرقمية وتسهيل تدفق العمليات التجارية لرفع الإنتاجية.</div>
+                <button class="action-btn" onclick="runModule('أتمتة الأعمال والعمليات', 'تفعيل محركات التدفق وربط واجهات البرمجة...')">تشغيل النظام</button>
+            </div>
+
+            <div class="module-card">
+                <div class="module-icon">📊</div>
+                <div class="module-title">تحليل البيانات والذكاء التنبؤي</div>
+                <div class="module-desc">معالجة البيانات الضخمة واستخراج المؤشرات الحيوية لاتخاذ القرارات بثقة.</div>
+                <button class="action-btn" onclick="runModule('تحليل البيانات والذكاء التنبؤي', 'استخراج مؤشرات الأداء وقواعد البيانات...')">تشغيل النظام</button>
+            </div>
+
+            <div class="module-card">
+                <div class="module-icon">✨</div>
+                <div class="module-title">صناعة المحتوى والتصميم</div>
+                <div class="module-desc">أدوات ذكية لتوليد المحتوى الإبداعي والتصاميم البصرية وإدارة الحملات بتميز.</div>
+                <button class="action-btn" onclick="runModule('صناعة المحتوى والتصميم', 'تفعيل محركات توليد النصوص والبصريات...')">تشغيل النظام</button>
+            </div>
+        </div>
+
+        <div class="section-title" style="margin-top: 10px;">باقات الاشتراكات (SaaS Subscriptions)</div>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="price-title">باقة الأفراد (Starter)</div>
+                <div class="price-amount">49$ <small style="font-size:12px; color:#9ca3af">/ شهرياً</small></div>
+                <div class="price-features">
+                    ✓ وصول كامل للمساعد الذكي<br>
+                    ✓ أدوات صناعة المحتوى الأساسية<br>
+                    ✓ دعم فني مدار عبر البريد
+                </div>
+                <button class="subscribe-btn" onclick="subscribePlan('باقة الأفراد Starter')">اشترك الآن</button>
+            </div>
+
+            <div class="price-card featured">
+                <div class="price-title">باقة الأعمال (VIP Business)</div>
+                <div class="price-amount">199$ <small style="font-size:12px; color:#9ca3af">/ شهرياً</small></div>
+                <div class="price-features">
+                    ✓ كافة ميزات الأفراد بلا حدود<br>
+                    ✓ أتمتة الأعمال الكاملة والعمليات<br>
+                    ✓ التحليلات التنبؤية المتقدمة للبيانات<br>
+                    ✓ أولوية دعم فني VIP على مدار الساعة
+                </div>
+                <button class="subscribe-btn" onclick="subscribePlan('باقة الأعمال VIP Business')">اشترك الآن (الأكثر طلباً)</button>
+            </div>
+        </div>
+
+        <div class="affiliate-section">
+            <h2>انضم إلى برنامج التسويق بالعمولة (Affiliate Partner)</h2>
+            <p>اربح معنا عمولة متكررة بنسبة <strong>30%</strong> عن كل مشترك جديد تقوم بإحضاره عبر رابط الإحالة الخاص بك. ابدأ بناء دخلك المستدام معنا اليوم!</p>
+            <button class="affiliate-btn" onclick="joinAffiliate()">انضم كمسوق شريك الآن</button>
+        </div>
+
+        <div class="console-box" id="consoleBox">
+            <div class="console-header">
+                <span id="consoleTitle">لوحة التحكم والتنفيذ</span>
+                <span style="cursor:pointer; color:#ef4444;" onclick="closeConsole()">✕ إغلاق</span>
+            </div>
+            <div class="console-output" id="consoleOutput">جاري معالجة الطلب...</div>
+        </div>
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة © HAJR AI Ecosystem 2026
+    </footer>
+
+    <script>
+        function runModule(name, message) {
+            const consoleBox = document.getElementById('consoleBox');
+            consoleBox.style.display = 'block';
+            document.getElementById('consoleTitle').textContent = `تشغيل وحدة: [ ${name} ]`;
+            document.getElementById('consoleOutput').textContent = "[ النظام ]: " + message;
+            setTimeout(() => {
+                document.getElementById('consoleOutput').textContent += "\n[ نجاح ]: تم تفعيل الوحدة بنجاح داخل بيئة السيرفر السحابي.";
+            }, 1000);
+        }
+
+        function subscribePlan(planName) {
+            const consoleBox = document.getElementById('consoleBox');
+            consoleBox.style.display = 'block';
+            document.getElementById('consoleTitle').textContent = `بوابة الدفع الآمن - [ ${planName} ]`;
+            document.getElementById('consoleOutput').textContent = `[ بوابة الدفع ]: جاري إنشاء فاتورة آمنة لـ ${planName}...\n[ التوجيه ]: سيتم تحويلك لبوابة الدفع المشفرة لإتمام الاشتراك الفوري.`;
+        }
+
+        function joinAffiliate() {
+            const consoleBox = document.getElementById('consoleBox');
+            consoleBox.style.display = 'block';
+            document.getElementById('consoleTitle').textContent = `برنامج الشركاء بالعمولة (Affiliate)`;
+            document.getElementById('consoleOutput').textContent = `[ التسجيل ]: مبروك! تم إنشاء حساب المسوق الشريك الخاص بك.\n[ رابط الإحالة ]: https://hajr-ai.com/ref/amjed_partner\n[ الأرباح ]: ستحصل على 30% عمولة عن كل عميل يشترك من رابطك.`;
+        }
+
+        function closeConsole() {
+            document.getElementById('consoleBox'].style.display = 'none';
+        }
+
+        setInterval(() => {
+            const randomPing = Math.floor(Math.random() * 8) + 12;
+            document.getElementById('pingRate').textContent = randomPing + 'ms';
+        }, 4000);
+    </script>
+
+</body>
+</html>
