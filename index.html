@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAJR AI - المنظومة الذكية المتكاملة</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: #111827;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+        .badge {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .status {
+            font-size: 13px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px #10b981;
+        }
+        .telemetry-bar {
+            background: #0f172a;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            font-size: 12px;
+            color: #9ca3af;
+            gap: 5px;
+            text-align: center;
+        }
+        .telemetry-item {
+            direction: ltr;
+            unicode-bidi: embed;
+        }
+        .telemetry-item span {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border: 1px solid #374151;
+            padding: 25px 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .hero-section p {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .grid-modules {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .module-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .module-card:hover {
+            border-color: #38bdf8;
+            background: #141c2e;
+        }
+        .module-icon {
+            font-size: 24px;
+        }
+        .module-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .module-desc {
+            font-size: 13px;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+        .action-btn {
+            margin-top: 5px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+        .console-box {
+            background: #111827;
+            border: 1px solid #38bdf8;
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+        }
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #38bdf8;
+            font-size: 14px;
+        }
+        .console-output {
+            background: #0b0f19;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #10b981;
+            border: 1px solid #1f2937;
+            line-height: 1.5;
+        }
+        footer {
+            background: #111827;
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid #1f2937;
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo">HAJR AI</div>
+            <div class="badge">المتكاملة</div>
+        </div>
+        <div class="status">
+            <span class="status-dot"></span> تعمل بكفاءة
+        </div>
+    </header>
+
+    <div class="telemetry-bar">
+        <div class="telemetry-item">Ping: <span id="pingRate">14ms</span></div>
+        <div class="telemetry-item">Uptime: <span style="color: #10b981;">99.9%</span></div>
+        <div class="telemetry-item">Core: <span>v3.4</span></div>
+    </div>
+
+    <div class="main-container">
+        <div class="hero-section">
+            <h1>منصة HAJR AI الشاملة للأعمال</h1>
+            <p>نظام بيئي متكامل يجمع المحادثة الذكية، الأتمتة، والتحليلات التنبؤية بأعلى معايير الأداء.</p>
+        </div>
+
+        <div class="grid-modules">
+            <div class="module-card">
+                <div class="module-icon">💬</div>
+                <div class="module-title">المساعد الذكي التفاعلي</div>
+                <div class="module-desc">أنظمة محادثة متطورة لخدمة العملاء والإجابة الفورية بدقة وسرعة فائقة.</div>
+                <button class="action-btn" onclick="runModule('المساعد الذكي التفاعلي', 'جاري تهيئة نماذج اللغة والاتصال بقنوات الدعم...')">تشغيل النظام</button>
+            </div>
+
+            <div class="module-card">
+                <div class="module-icon">⚡</div>
+                <div class="module-title">أتمتة الأعمال والعمليات</div>
+                <div class="module-desc">حلول برمجية لربط المنصات الرقمية وتسهيل تدفق العمليات التجارية لرفع الإنتاجية.</div>
+                <button class="action-btn" onclick="runModule('أتمتة الأعمال والعمليات', 'جاري ربط واجهات البرمجة وتفعيل محركات التدفق...')">تشغيل النظام</button>
+            </div>
+
+            <div class="module-card">
+                <div class="module-icon">📊</div>
+                <div class="module-title">تحليل البيانات والذكاء التنبؤي</div>
+                <div class="module-desc">معالجة البيانات الضخمة واستخراج المؤشرات الحيوية لاتخاذ القرارات بثقة.</div>
+                <button class="action-btn" onclick="runModule('تحليل البيانات والذكاء التنبؤي', 'جاري معالجة قواعد البيانات واستخراج مؤشرات الأداء...')">تشغيل النظام</button>
+            </div>
+
+            <div class="module-card">
+                <div class="module-icon">✨</div>
+                <div class="module-title">صناعة المحتوى والتصميم</div>
+                <div class="module-desc">أدوات ذكية لتوليد المحتوى الإبداعي والتصاميم البصرية وإدارة الحملات بتميز.</div>
+                <button class="action-btn" onclick="runModule('صناعة المحتوى والتصميم', 'جاري تفعيل محركات توليد النصوص والبصريات الإبداعية...')">تشغيل النظام</button>
+            </div>
+        </div>
+
+        <div class="console-box" id="consoleBox">
+            <div class="console-header">
+                <span id="consoleTitle">محطة التشغيل المركزي</span>
+                <span style="cursor:pointer; color:#ef4444;" onclick="closeConsole()">✕ إغلاق</span>
+            </div>
+            <div class="console-output" id="consoleOutput">جاري التحميل...</div>
+        </div>
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة © HAJR AI Ecosystem 2026
+    </footer>
+
+    <script>
+        function runModule(name, message) {
+            const consoleBox = document.getElementById('consoleBox');
+            const consoleTitle = document.getElementById('consoleTitle');
+            const consoleOutput = document.getElementById('consoleOutput');
+
+            consoleBox.style.display = 'block';
+            consoleTitle.textContent = `تشغيل: [ ${name} ]`;
+            consoleOutput.textContent = "[ النظام ]: " + message;
+
+            setTimeout(() => {
+                consoleOutput.textContent += "\n[ نجاح ]: تم ربط الوحدة وتفعيل الاتصال الآمن بنجاح.";
+            }, 1000);
+        }
+
+        function closeConsole() {
+            document.getElementById('consoleBox').style.display = 'none';
+        }
+
+        setInterval(() => {
+            const randomPing = Math.floor(Math.random() * 8) + 12;
+            document.getElementById('pingRate').textContent = randomPing + 'ms';
+        }, 4000);
+    </script>
+
+</body>
+</html>
